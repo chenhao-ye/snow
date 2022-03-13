@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export SNOW_HOME="${SNOW_HOME:-$HOME/.snow}"
+export SNOW_DATA="${SNOW_DATA:-$SNOW_HOME/data}"
+
+python3 "$SNOW_HOME/src/gcal_notion.py" "$@"
