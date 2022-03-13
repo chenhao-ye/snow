@@ -1,6 +1,5 @@
 import os.path
 import logging
-from collections import OrderedDict
 from typing import List, Optional
 
 from google.auth.transport.requests import Request
@@ -55,7 +54,7 @@ class GoogleCalendarService:
         if self.cal_map is not None:
             return
 
-        self.cal_map = OrderedDict()
+        self.cal_map = {}
         # calendar list is broken into multiple pages
         # use page_token to iterate through the pages
         page_token = None
