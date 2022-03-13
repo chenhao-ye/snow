@@ -45,7 +45,8 @@ def get_notion_active_db() -> Database:
     if not notion.is_auth:
         notion.auth(config.get_parsed_val('notion_token_path'))
     if notion.active_db is None:
-        raise ValueError("Notion Database has not been selected")
+        # force config to set active db through parser `set_active_db`
+        config.get_parsed_val("db_name")
     return notion.active_db
 
 
@@ -140,14 +141,12 @@ def get_config() -> Config:
     config.add(
         "cal_list",
         "Calendar(s) to synchronize [cal1,cal2,...]",
-        hinter=lambda:
-        f"Valid calendars: {pprint.pformat(get_gcal_cal_name_list(), compact=True)}",
+        hinter=lambda: f"Valid calendars: {list(get_gcal_cal_name_list())}",
         parser=parse_cal_list)
     config.add(
         "db_name",
         "Database to which calendars are synchronized",
-        hinter=lambda:
-        f"Valid databases: {pprint.pformat(get_notion_db_name_list(), compact=True)}",
+        hinter=lambda: f"Valid databases: {list(get_notion_db_name_list())}",
         parser=set_active_db)
     config.add("time_min",
                "Date from which start synchronize: [YYYY-MM-DD]",
