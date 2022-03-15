@@ -36,24 +36,25 @@ class Database:
         return self.title
 
     def retrieve_page(self, page_id: str) -> Page:
-        logging.debug(f"Retrieve page {page_id}")
+        logging.info(f"Retrieve page {page_id}")
         return Page(self.service.pages.retrieve(page_id=page_id))
 
     def create_page(self, page: Page) -> Page:
-        logging.debug(f"Create page: {page}")
+        logging.info(f"Create page: {page}")
         return Page(self.service.pages.create(parent={'database_id': self.id},
                                               properties=page.data))
 
     def update_page(self, page_id: str, page: Page) -> Page:
-        logging.debug(f"Update page {page_id}: {page}")
+        logging.info(f"Update page {page_id}: {page}")
         return Page(self.service.pages.update(page_id=page_id, properties=page.data))
 
     def delete_page(self, page_id: str, not_found_ok: bool = True) -> Optional[Page]:
         try:
-            logging.debug(f"Delete page {page_id}")
+            logging.info(f"Delete page {page_id}")
             return Page(self.service.pages.update(page_id=page_id, archived=True))
         except APIResponseError as e:
             if not_found_ok:
+                logging.info(f"Delete page {page_id} response: {e}")
                 return None
             # else: we are not expected to handle error here
             raise e

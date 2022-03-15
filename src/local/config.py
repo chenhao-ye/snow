@@ -5,7 +5,9 @@ import json
 
 
 class Config:
+
     class ConfigOption:
+
         def __init__(self, string) -> None:
             self.string = string
 

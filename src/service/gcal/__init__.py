@@ -64,7 +64,7 @@ class GoogleCalendarService:
             for cal_data in cal_list_page['items']:
                 cal = Calendar(self.service, cal_data)
                 self.cal_map[cal.name] = cal
-                logging.debug(f"Get calendar: {cal.name}")
+                logging.info(f"Get calendar: {cal.name}")
             page_token = cal_list_page.get('nextPageToken')
             if not page_token:
                 break

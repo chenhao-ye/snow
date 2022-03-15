@@ -48,7 +48,7 @@ class Calendar:
                 event = Event(self.service, event_data)
                 self.events_cache[event.id] = event
                 events_id_list.append(event.id)
-                logging.debug(f"Get event: {event.name}")
+                logging.info(f"Get event: {event.name}")
             page_token = events_page.get('nextPageToken')
             if not page_token:
                 next_sync_token = events_page.get('nextSyncToken')
@@ -65,5 +65,5 @@ class Calendar:
             calendarId=self.id, eventId=event_id).execute()
         event = Event(self.service, event_data)
         self.events_cache[event.id] = event
-        logging.debug(f"Get event: {event.name}")
+        logging.info(f"Get event: {event.name}")
         return event
