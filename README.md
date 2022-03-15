@@ -89,6 +89,12 @@ snow --gcal_creds_path ./creds.json \
   # note for `cal_merge`, '>' must escape from shell's grammar
 ```
 
+If you are interested in what SNOW is doing synchronization, you could set environment variable `SNOW_LOG_LEVEL` to `INFO`, which will show you which events it gets from Google and what it sends to Notion:
+
+```shell
+SNOW_LOG_LEVEL=INFO snow
+```
+
 ### Limitation
 
 SNOW performs incremental synchronization i.e. it only sends what is updated on Google servers to Notion servers. This requires SNOW to maintain a mapping from Google Calendar event ID to Notion page ID on your local desktop machine so that if an event is updated on Google, SNOW could know which page to update on Notion. This means you can only have one desktop to do such synchronization. It should be fine for most users. If you change your laptop, you could simply copy your local `~/.snow` to the new desktop.

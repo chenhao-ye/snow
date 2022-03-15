@@ -250,8 +250,13 @@ def do_sync() -> None:
         for eid in events_id_list:
             event = cal.get_event(eid)
             if event.is_deleted:
-                db.delete_page(eid)
-                id_map.delete(eid)
+                page_id = id_map.get(eid)
+                if page_id is not None:
+                    db.delete_page(page_id)
+                    id_map.delete(eid)
+                else:
+                    logging.info(f"Cancelled event {event} not found locally; "
+                                 "will not delete any page on Notion")
             else:
                 pb = PageBuilder()
 
