@@ -3,6 +3,7 @@ import logging
 from typing import List, Optional
 
 from google.auth.transport.requests import Request
+from google.auth.exceptions import RefreshError
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -17,6 +18,8 @@ class GoogleCalendarService:
     FIELDS = ["cal_name", "title", "time", "location", "description"]
 
     def __init__(self) -> None:
+        # `creds` is a confusing name here. It actually means user's access
+        # token, not the developer's credentials
         self.creds = None
         self.service = None
         self.is_auth = False
@@ -26,7 +29,7 @@ class GoogleCalendarService:
         """Perform authentications.
 
         Two files are involved:
-        - credentials file: to prove to Google that the current application is AutoFlow.
+        - credentials file: to prove to Google that the current application is SNOW.
         - token file: to ask the user to grant the access of the calendar data.
         """
         if self.is_auth:
@@ -35,11 +38,19 @@ class GoogleCalendarService:
         if os.path.exists(token_path):
             self.creds = Credentials.from_authorized_user_file(
                 token_path, self.SCOPES)
-        # If there are no (valid) credentials available, let the user log in.
+        # If there are no (valid) credentials available, let the user login.
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
-                self.creds.refresh(Request())
+                logging.info("No valid token found. Will try to refresh.")
+                try:
+                    self.creds.refresh(Request())
+                except RefreshError:
+                    logging.info(
+                        "Fail to refresh token. User must retry login.")
             else:
+                logging.info("No valid token found. Please retry login.")
+
+            if not self.creds or not self.creds.valid:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     creds_path, self.SCOPES)
                 self.creds = flow.run_local_server(port=0)

@@ -10,11 +10,15 @@ One motivation of SNOW is to run it directly on your personal computer, instead 
 
 To use SNOW, there are two authentications to take care of:
 
-1. Before SNOW can access any Google APIs and retrieve user data, SNOW must prove to Google that it's really SNOW, not some malicious applications that pretend to be SNOW.
+1. Before SNOW can access any Google APIs and retrieve user data, SNOW must prove to Google that it's really SNOW, not some malicious applications that pretend to be SNOW. This authentication is to prove your identity as the *developer* of SNOW.
 
-2. The user then must grant SNOW the access of the user's data on Google.
+2. The user then must grant SNOW access to the user's data on Google. This authentication is to prove your identity as the *user* of SNOW.
 
-For authentication (1), one must create a project, within which then create [credentials](https://developers.google.com/workspace/guides/create-credentials#desktop-app) and enables Google Calendar APIs.
+For authentication (1), one must create a project for SNOW, within which then create [credentials](https://developers.google.com/workspace/guides/create-credentials#desktop-app) and enables Google Calendar APIs.
+
+For authentication (2), SNOW will prompt a window to ask for Google Calendar read-only access permission. Google may show a warning that "Google hasn't verified this app", because you haven't submitted SNOW to Google for verification. It's okay and just click **Continue**. Ideally, you only need to do it once, and SNOW will refresh the token automatically. Sometimes it may fail to refresh and require you to retry login.
+
+Click the toggle list below for step-by-step help.
 
 <details>
 <summary>Create a project</summary>
@@ -71,5 +75,3 @@ For authentication (1), one must create a project, within which then create [cre
   3. Search "Google Calendar API". Click the search result and enable it.
 
 </details>
-
-When running SNOW for the first time, it will prompt a window to ask for Google Calendar read-only access permission. Google may show waring that "Google hasn't verified this app", because we haven't submitted SNOW to Google for verification. It's okay and just click **Continue**.

@@ -50,7 +50,7 @@ In the command-line of your desktop, run `snow`. It will ask you interactively f
 
 - `gcal_creds_path`: The path to the previously saved Google credentials file in step 0.
 
-- `gcal_token_path`: The path to a Google Calendar access token. You could just leave this field blank, and later it will pop a window to ask you to log in to your Google account and grant access to SNOW.
+- `gcal_token_path`: The path to a Google Calendar access token. You could just leave this field blank, and later it will pop a window to ask you to login to your Google account and grant access to SNOW.
 
 - `notion_token_path`: The path to the previously saved Notion token file in step 0.
 
@@ -89,7 +89,7 @@ snow --gcal_creds_path ./creds.json \
   # note for `cal_merge`, '>' must escape from shell's grammar
 ```
 
-If you are interested in what SNOW is doing synchronization, you could set environment variable `SNOW_LOG_LEVEL` to `INFO`, which will show you which events it gets from Google and what it sends to Notion:
+If you are interested in what SNOW is doing during synchronization, you could set environment variable `SNOW_LOG_LEVEL` to `INFO`, which will show you which events it gets from Google and what it sends to Notion:
 
 ```shell
 SNOW_LOG_LEVEL=INFO snow
