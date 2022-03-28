@@ -312,7 +312,7 @@ if __name__ == "__main__":
     log_level = os.environ.get("SNOW_LOG_LEVEL")
     if log_level is not None:
         if log_level == "DEBUG":
-            logging.basicConfig(level=logging.info)
+            logging.basicConfig(level=logging.DEBUG)
         elif log_level == "INFO":
             logging.basicConfig(level=logging.INFO)
         elif log_level == "WARNING":
